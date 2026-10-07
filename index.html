@@ -1,0 +1,2529 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>美港西社區大學_歡迎評鑑委員</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+
+    margin: 0;
+
+    min-height: 100vh;
+
+    font-family:
+        "Noto Sans TC",
+        "Microsoft JhengHei",
+        sans-serif;
+
+    background:
+        radial-gradient(
+            circle at 50% 10%,
+            #304a87 0%,
+            #111a35 45%,
+            #050812 100%
+        );
+
+    color: white;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 20px;
+
+}
+
+
+.player {
+
+    width: 100%;
+
+    max-width: 950px;
+
+    padding: 30px;
+
+    border-radius: 25px;
+
+    background:
+        rgba(10,18,38,0.94);
+
+    border:
+        1px solid
+        rgba(255,255,255,0.12);
+
+    box-shadow:
+        0 25px 80px
+        rgba(0,0,0,0.55);
+
+    backdrop-filter:
+        blur(15px);
+
+}
+
+
+/* =========================
+   標題
+========================= */
+
+h1 {
+
+    text-align: center;
+
+    margin:
+        0 0 25px;
+
+    font-size: 30px;
+
+    letter-spacing: 3px;
+
+}
+
+
+/* =========================
+   選歌
+========================= */
+
+.select-area {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        auto
+        auto
+        auto;
+
+    gap: 10px;
+
+    margin-bottom: 20px;
+
+}
+
+
+select {
+
+    height: 52px;
+
+    border-radius: 12px;
+
+    border:
+        1px solid #475569;
+
+    background:
+        #18233f;
+
+    color: white;
+
+    padding:
+        0 15px;
+
+    font-size: 17px;
+
+    outline: none;
+
+}
+
+
+select:focus {
+
+    border-color:
+        #60a5fa;
+
+    box-shadow:
+        0 0 15px
+        rgba(96,165,250,0.4);
+
+}
+
+
+button {
+
+    height: 52px;
+
+    padding:
+        0 22px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition:
+        all 0.2s ease;
+
+    white-space: nowrap;
+
+}
+
+
+button:hover {
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 8px 25px
+        rgba(59,130,246,0.4);
+
+}
+
+
+.play-button {
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #7c3aed
+        );
+
+}
+
+
+.download-mp3 {
+
+    background:
+        linear-gradient(
+            135deg,
+            #059669,
+            #047857
+        );
+
+}
+
+
+.download-srt {
+
+    background:
+        linear-gradient(
+            135deg,
+            #d97706,
+            #b45309
+        );
+
+}
+
+
+.refresh-button {
+
+    background:
+        linear-gradient(
+            135deg,
+            #475569,
+            #334155
+        );
+
+}
+
+
+/* =========================
+   歌曲資訊
+========================= */
+
+.song-title {
+
+    text-align: center;
+
+    font-size: 25px;
+
+    font-weight: bold;
+
+    margin:
+        15px 0 5px;
+
+}
+
+
+.status {
+
+    text-align: center;
+
+    color: #94a3b8;
+
+    margin-bottom: 20px;
+
+}
+
+
+.song-count {
+
+    text-align: center;
+
+    margin-top: 10px;
+
+    margin-bottom: 15px;
+
+    color: #64748b;
+
+    font-size: 14px;
+
+}
+
+
+/* =========================
+   波形
+========================= */
+
+.wave-box {
+
+    position: relative;
+
+    width: 100%;
+
+    height: 260px;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    background:
+
+        radial-gradient(
+            circle,
+            rgba(59,130,246,0.18),
+            transparent 65%
+        ),
+
+        rgba(0,0,0,0.35);
+
+    border:
+        1px solid
+        rgba(255,255,255,0.08);
+
+}
+
+
+#waveCanvas {
+
+    width: 100%;
+
+    height: 100%;
+
+    display: block;
+
+}
+
+
+.wave-line {
+
+    position: absolute;
+
+    left: 0;
+
+    right: 0;
+
+    top: 50%;
+
+    height: 1px;
+
+    background:
+        rgba(255,255,255,0.15);
+
+    pointer-events: none;
+
+}
+
+
+/* =========================
+   歌詞
+========================= */
+
+.lyrics {
+
+    height: 190px;
+
+    overflow-y: scroll;
+
+    /* 隱藏捲軸，但仍然可以用滑鼠滾輪或觸控滑動 */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    margin-top: 20px;
+
+    padding:
+        25px 15px;
+
+    border-radius: 15px;
+
+    background:
+        rgba(0,0,0,0.20);
+
+    text-align: center;
+
+    scroll-behavior: smooth;
+
+}
+
+
+.lyric-line {
+
+    color: #64748b;
+
+    font-size: 18px;
+
+    margin:
+        12px 0;
+
+    transition:
+        all 0.3s ease;
+
+}
+
+
+.lyric-line.active {
+
+    color: white;
+
+    font-size: 26px;
+
+    font-weight: bold;
+
+    text-shadow:
+        0 0 15px #60a5fa,
+        0 0 30px #2563eb;
+
+    transform:
+        scale(1.05);
+
+}
+
+
+/* =========================
+   Audio
+========================= */
+
+audio {
+
+    width: 100%;
+
+    margin-top: 20px;
+
+}
+
+
+/* =========================
+   手機
+========================= */
+
+@media(max-width:800px) {
+
+    .select-area {
+
+        grid-template-columns:
+            1fr 1fr;
+
+    }
+
+
+    select {
+
+        grid-column:
+            1 / -1;
+
+    }
+
+
+    button {
+
+        width: 100%;
+
+    }
+
+}
+
+
+@media(max-width:500px) {
+
+    .player {
+
+        padding: 20px;
+
+    }
+
+
+    h1 {
+
+        font-size: 24px;
+
+    }
+
+
+    .select-area {
+
+        display: flex;
+
+        flex-direction: column;
+
+    }
+
+
+    select {
+
+        width: 100%;
+
+    }
+
+
+    button {
+
+        width: 100%;
+
+    }
+
+
+    .wave-box {
+
+        height: 180px;
+
+    }
+
+
+    .lyrics {
+
+        height: 170px;
+
+    }
+
+}
+
+
+
+/* =========================
+   GitHub 設定
+========================= */
+.github-settings {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 10px;
+    margin-bottom: 20px;
+    align-items: end;
+}
+
+.github-field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.github-field label {
+    font-size: 14px;
+    color: #cbd5e1;
+    font-weight: bold;
+}
+
+.github-field input {
+    height: 52px;
+    width: 100%;
+    border-radius: 12px;
+    border: 1px solid #475569;
+    background: #18233f;
+    color: white;
+    padding: 0 15px;
+    font-size: 17px;
+    outline: none;
+}
+
+.github-field input:focus {
+    border-color: #60a5fa;
+    box-shadow: 0 0 15px rgba(96,165,250,0.4);
+}
+
+.github-field input:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+.download-html {
+    background: linear-gradient(135deg, #7c3aed, #4f46e5);
+}
+
+.download-html:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+@media(max-width:800px) {
+    .github-settings {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .download-html {
+        grid-column: 1 / -1;
+        width: 100%;
+    }
+}
+
+@media(max-width:500px) {
+    .github-settings {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .github-field,
+    .download-html {
+        width: 100%;
+    }
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="player">
+
+
+    <h1>🎵 美港西社區大學_歡迎評鑑委員蒞臨指導</h1>
+
+    <!-- =====================
+         GitHub 設定
+    ====================== -->
+    <div class="github-settings">
+
+        <div class="github-field">
+            <label for="githubUser"></label>
+            <input type="hidden" id="githubUser" value="cch98879" autocomplete="off" disabled="disabled">
+        </div>
+
+        <div class="github-field">
+            <label for="githubRepo"></label>
+            <input type="hidden" id="githubRepo" value="hsscu" autocomplete="off" disabled="disabled">
+        </div>
+
+        <button id="downloadHTML" class="download-html" disabled="disabled" style="display:none;">
+            ⬇️ 下載 mp3.html
+        </button>
+
+    </div>
+
+
+
+    <!-- =====================
+         選擇歌曲
+    ====================== -->
+
+    <div class="select-area">
+
+
+        <select id="songSelect"><option value="">🎵 請選擇歌曲</option><option value="一起讓學習發光.mp3">一起讓學習發光</option></select>
+
+
+        <button id="playButton" class="play-button">
+
+            ▶ 播放
+
+        </button>
+
+
+        <button id="downloadMP3" class="download-mp3">
+
+            ⬇️ 下載 MP3 音樂
+
+        </button>
+
+
+        <button id="downloadSRT" class="download-srt">
+
+            📄 下載 SRT 字幕
+
+        </button>
+
+
+
+
+
+    </div>
+
+
+    <!-- =====================
+         歌曲資訊
+    ====================== -->
+
+    <div class="song-title" id="songTitle">
+
+        尚未選擇歌曲
+
+    </div>
+
+
+    <div class="status" id="status">歌曲清單載入完成</div>
+
+
+    <div class="song-count" id="songCount">目前共有 1 首歌曲</div>
+
+
+    <!-- =====================
+         動態波形
+    ====================== -->
+
+    <div class="wave-box">
+
+        <canvas id="waveCanvas" width="886" height="258">
+        </canvas>
+
+        <div class="wave-line"></div>
+
+    </div>
+
+
+    <!-- =====================
+         歌詞
+    ====================== -->
+
+    <div class="lyrics" id="lyrics">
+
+        <div class="lyric-line">
+
+            ♪ 等待歌詞載入 ♪
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================
+         MP3播放器
+    ====================== -->
+
+    <audio id="audio" controls="" preload="auto" crossorigin="anonymous">
+    </audio>
+
+
+</div>
+
+
+
+<script>
+
+
+/* =====================================================
+   GitHub 設定
+===================================================== */
+
+let GITHUB_USER = "cch98879";
+let GITHUB_REPO = "hsscu";
+const MP3_FOLDER = "mp3";
+
+const githubUserInput =
+    document.getElementById("githubUser");
+
+const githubRepoInput =
+    document.getElementById("githubRepo");
+
+const downloadHTML =
+    document.getElementById("downloadHTML");
+
+function updateGitHubConfig() {
+
+    const user =
+        githubUserInput.value.trim();
+
+    const repo =
+        githubRepoInput.value.trim();
+
+    if (user) {
+        GITHUB_USER = user;
+    }
+
+    if (repo) {
+        GITHUB_REPO = repo;
+    }
+}
+
+function getAPIURL() {
+
+    return (
+        "https://api.github.com/repos/"
+        + encodeURIComponent(GITHUB_USER)
+        + "/"
+        + encodeURIComponent(GITHUB_REPO)
+        + "/contents/"
+        + MP3_FOLDER
+    );
+}
+
+function getMP3BaseURL() {
+
+    return (
+        "https://"
+        + GITHUB_USER
+        + ".github.io/"
+        + GITHUB_REPO
+        + "/"
+        + MP3_FOLDER
+        + "/"
+    );
+}
+
+
+/* =====================================================
+   HTML元素
+===================================================== */
+
+const songSelect =
+    document.getElementById(
+        "songSelect"
+    );
+
+updateGitHubConfig();
+
+
+const playButton =
+    document.getElementById(
+        "playButton"
+    );
+
+
+const downloadMP3 =
+    document.getElementById(
+        "downloadMP3"
+    );
+
+
+const downloadSRT =
+    document.getElementById(
+        "downloadSRT"
+    );
+
+
+const refreshButton =
+    document.getElementById(
+        "refreshButton"
+    );
+
+
+const audio =
+    document.getElementById(
+        "audio"
+    );
+
+
+const songTitle =
+    document.getElementById(
+        "songTitle"
+    );
+
+
+const statusText =
+    document.getElementById(
+        "status"
+    );
+
+
+const songCount =
+    document.getElementById(
+        "songCount"
+    );
+
+
+const lyricsBox =
+    document.getElementById(
+        "lyrics"
+    );
+
+
+const canvas =
+    document.getElementById(
+        "waveCanvas"
+    );
+
+
+const ctx =
+    canvas.getContext(
+        "2d"
+    );
+
+
+/* =====================================================
+   Audio
+===================================================== */
+
+let audioContext = null;
+
+let analyser = null;
+
+let source = null;
+
+let dataArray = null;
+
+let animationID = null;
+
+
+/* =====================================================
+   歌詞
+===================================================== */
+
+let lyrics = [];
+
+
+/* =====================================================
+   初始化
+===================================================== */
+
+window.addEventListener(
+    "load",
+    loadSongs
+);
+
+
+/* =====================================================
+   自動讀取 GitHub MP3
+===================================================== */
+
+async function loadSongs() {
+
+
+    statusText.textContent =
+        "正在讀取 GitHub mp3 資料夾...";
+
+
+    songSelect.innerHTML = "";
+
+
+    songSelect.disabled = true;
+
+
+    try {
+
+
+        const response =
+            await fetch(
+                getAPIURL()
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "GitHub API 無法讀取"
+            );
+
+        }
+
+
+        const files =
+            await response.json();
+
+
+        /*
+         * 只抓 MP3
+         */
+
+        const mp3Files =
+            files
+            .filter(
+                file => {
+
+                    return (
+                        file.type ===
+                        "file"
+                        &&
+                        file.name
+                            .toLowerCase()
+                            .endsWith(
+                                ".mp3"
+                            )
+                    );
+
+                }
+            )
+            .sort(
+                (a,b) =>
+                    a.name.localeCompare(
+                        b.name,
+                        "zh-Hant"
+                    )
+            );
+
+
+        if (
+            mp3Files.length === 0
+        ) {
+
+
+            songSelect.innerHTML =
+                `<option>
+                    mp3 資料夾目前沒有 MP3
+                </option>`;
+
+
+            statusText.textContent =
+                "找不到 MP3";
+
+
+            songCount.textContent =
+                "";
+
+
+            return;
+
+        }
+
+
+        /*
+         * 第一個選項
+         */
+
+        const firstOption =
+            document.createElement(
+                "option"
+            );
+
+
+        firstOption.value =
+            "";
+
+
+        firstOption.textContent =
+            "🎵 請選擇歌曲";
+
+
+        songSelect.appendChild(
+            firstOption
+        );
+
+
+        /*
+         * 建立歌曲清單
+         */
+
+        mp3Files.forEach(
+            file => {
+
+
+                const option =
+                    document.createElement(
+                        "option"
+                    );
+
+
+                const songName =
+                    file.name.replace(
+                        /\.mp3$/i,
+                        ""
+                    );
+
+
+                option.value =
+                    file.name;
+
+
+                option.textContent =
+                    songName;
+
+
+                songSelect.appendChild(
+                    option
+                );
+
+            }
+        );
+
+
+        songSelect.disabled =
+            false;
+
+
+        songCount.textContent =
+            `目前共有 ${mp3Files.length} 首歌曲`;
+
+
+        statusText.textContent =
+            "歌曲清單載入完成";
+
+
+    } catch(error) {
+
+
+        console.error(error);
+
+
+        songSelect.innerHTML =
+            `<option>
+                ⚠ 無法讀取 GitHub mp3 資料夾
+            </option>`;
+
+
+        statusText.textContent =
+            "❌ GitHub 歌曲清單讀取失敗";
+
+
+        songCount.textContent =
+            "請確認 AI/mp3 資料夾是否存在";
+
+    }
+
+}
+
+
+/* =====================================================
+   GitHub 設定變更
+===================================================== */
+
+githubUserInput.addEventListener(
+    "input",
+    updateGitHubConfig
+);
+
+githubRepoInput.addEventListener(
+    "input",
+    updateGitHubConfig
+);
+
+
+/* =====================================================
+   下載 mp3.html
+   注意：使用真正的換行，不把 "\\n" 寫進 HTML
+===================================================== */
+
+downloadHTML.addEventListener(
+    "click",
+    function() {
+
+        updateGitHubConfig();
+
+        if (!GITHUB_USER || !GITHUB_REPO) {
+            alert("請輸入 GitHub 帳號與儲存庫名稱！");
+            return;
+        }
+
+        /*
+         * 複製目前完整網頁。
+         * 使用 cloneNode() 後直接設定欄位值與 disabled，
+         * 讓下載後的 mp3.html 一開啟就是鎖定狀態。
+         */
+        const clonedDocument =
+            document.documentElement.cloneNode(true);
+
+        const clonedUser =
+            clonedDocument.querySelector("#githubUser");
+
+        const clonedRepo =
+            clonedDocument.querySelector("#githubRepo");
+
+        const clonedDownload =
+            clonedDocument.querySelector("#downloadHTML");
+
+        if (clonedUser) {
+            clonedUser.value = GITHUB_USER;
+            clonedUser.setAttribute("value", GITHUB_USER);
+            clonedUser.disabled = true;
+            clonedUser.setAttribute("disabled", "disabled");
+        }
+
+        if (clonedRepo) {
+            clonedRepo.value = GITHUB_REPO;
+            clonedRepo.setAttribute("value", GITHUB_REPO);
+            clonedRepo.disabled = true;
+            clonedRepo.setAttribute("disabled", "disabled");
+        }
+
+        if (clonedDownload) {
+            clonedDownload.disabled = true;
+            clonedDownload.setAttribute("disabled", "disabled");
+        }
+
+        /*
+         * 同步下載檔中的 JavaScript 初始值。
+         * 這樣即使原始 HTML 曾經修改過預設值，
+         * 下載後仍會使用目前輸入的 GitHub 設定。
+         */
+        const scripts =
+            clonedDocument.querySelectorAll("script");
+
+        scripts.forEach(function(script) {
+
+            if (!script.textContent.includes(
+                'let GITHUB_USER = "cch98879";'
+            )) {
+                return;
+            }
+
+            script.textContent =
+                script.textContent.replace(
+                    /let GITHUB_USER = "[^"]*";/,
+                    'let GITHUB_USER = ' +
+                    JSON.stringify(GITHUB_USER) +
+                    ';'
+                ).replace(
+                    /let GITHUB_REPO = "[^"]*";/,
+                    'let GITHUB_REPO = ' +
+                    JSON.stringify(GITHUB_REPO) +
+                    ';'
+                );
+        });
+
+        /*
+         * outerHTML 本身會產生真正的換行，
+         * 不使用 literal "\\n" 字串，因此不會在檔案開頭
+         * 或 HTML 內容看到 \\n         */
+        const html =
+            "<!DOCTYPE html>\n" +
+            clonedDocument.outerHTML;
+
+        const blob =
+            new Blob(
+                [html],
+                { type: "text/html;charset=utf-8" }
+            );
+
+        const url =
+            URL.createObjectURL(blob);
+
+        const link =
+            document.createElement("a");
+
+        link.href = url;
+        link.download = "mp3.html";
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+
+        URL.revokeObjectURL(url);
+
+        statusText.textContent =
+            "✅ mp3.html 下載完成";
+    }
+);
+
+
+/* =====================================================
+   選擇歌曲
+===================================================== */
+
+songSelect.addEventListener(
+    "change",
+    function() {
+
+
+        const fileName =
+            this.value;
+
+
+        if (!fileName) {
+
+
+            songTitle.textContent =
+                "尚未選擇歌曲";
+
+
+            return;
+
+        }
+
+
+        const songName =
+            fileName.replace(
+                /\.mp3$/i,
+                ""
+            );
+
+
+        songTitle.textContent =
+            "🎵 " + songName;
+
+
+        statusText.textContent =
+            "已選擇歌曲，請按「播放」";
+
+    }
+);
+
+
+/* =====================================================
+   建立 MP3 網址
+===================================================== */
+
+function getMP3URL() {
+
+
+    const fileName =
+        songSelect.value;
+
+
+    if (!fileName) {
+
+        return null;
+
+    }
+
+
+    return (
+        getMP3BaseURL() +
+        encodeURIComponent(
+            fileName
+        )
+    );
+
+}
+
+
+/* =====================================================
+   建立 SRT 網址
+===================================================== */
+
+function getSRTURL() {
+
+
+    const fileName =
+        songSelect.value;
+
+
+    if (!fileName) {
+
+        return null;
+
+    }
+
+
+    const songName =
+        fileName.replace(
+            /\.mp3$/i,
+            ""
+        );
+
+
+    return (
+        getMP3BaseURL() +
+        encodeURIComponent(
+            songName + ".srt"
+        )
+    );
+
+}
+
+
+/* =====================================================
+   播放歌曲
+===================================================== */
+
+playButton.addEventListener(
+    "click",
+    playSong
+);
+
+
+async function playSong() {
+
+
+    const fileName =
+        songSelect.value;
+
+
+    if (!fileName) {
+
+
+        alert(
+            "請先從下拉式選單選擇歌曲！"
+        );
+
+
+        return;
+
+    }
+
+
+    const songName =
+        fileName.replace(
+            /\.mp3$/i,
+            ""
+        );
+
+
+    const mp3URL =
+        getMP3URL();
+
+
+    const srtURL =
+        getSRTURL();
+
+
+    songTitle.textContent =
+        "🎵 " + songName;
+
+
+    statusText.textContent =
+        "正在載入歌曲...";
+
+
+    audio.pause();
+
+
+    audio.currentTime =
+        0;
+
+
+    audio.src =
+        mp3URL;
+
+
+    audio.load();
+
+
+    /*
+     * 建立音訊分析器
+     */
+
+    createAudioAnalyzer();
+
+
+    if (
+        audioContext &&
+        audioContext.state ===
+        "suspended"
+    ) {
+
+
+        await audioContext.resume();
+
+    }
+
+
+    /*
+     * 載入SRT
+     */
+
+    loadSRT(
+        srtURL
+    );
+
+
+    /*
+     * 播放
+     */
+
+    try {
+
+
+        await audio.play();
+
+
+        statusText.textContent =
+            "🔊 正在播放";
+
+
+        startWave();
+
+
+    } catch(error) {
+
+
+        console.error(
+            error
+        );
+
+
+        statusText.textContent =
+            "❌ MP3 無法播放";
+
+    }
+
+}
+
+
+/* =====================================================
+   下載 MP3
+===================================================== */
+
+downloadMP3.addEventListener(
+    "click",
+    async function() {
+
+
+        const fileName =
+            songSelect.value;
+
+
+        if (!fileName) {
+
+
+            alert(
+                "請先選擇歌曲！"
+            );
+
+
+            return;
+
+        }
+
+
+        const mp3URL =
+            getMP3URL();
+
+
+        const originalText =
+            this.textContent;
+
+
+        this.textContent =
+            "⏳ 下載中...";
+
+
+        this.disabled =
+            true;
+
+
+        try {
+
+
+            /*
+             * 先抓取檔案
+             */
+
+            const response =
+                await fetch(
+                    mp3URL
+                );
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "MP3下載失敗"
+                );
+
+            }
+
+
+            const blob =
+                await response.blob();
+
+
+            /*
+             * 建立下載連結
+             */
+
+            const blobURL =
+                URL.createObjectURL(
+                    blob
+                );
+
+
+            const link =
+                document.createElement(
+                    "a"
+                );
+
+
+            link.href =
+                blobURL;
+
+
+            link.download =
+                fileName;
+
+
+            document.body.appendChild(
+                link
+            );
+
+
+            link.click();
+
+
+            link.remove();
+
+
+            URL.revokeObjectURL(
+                blobURL
+            );
+
+
+            statusText.textContent =
+                "✅ MP3 下載完成";
+
+
+        } catch(error) {
+
+
+            console.error(
+                error
+            );
+
+
+            /*
+             * 如果瀏覽器阻擋 fetch，
+             * 改用直接下載
+             */
+
+            const link =
+                document.createElement(
+                    "a"
+                );
+
+
+            link.href =
+                mp3URL;
+
+
+            link.download =
+                fileName;
+
+
+            link.target =
+                "_blank";
+
+
+            document.body.appendChild(
+                link
+            );
+
+
+            link.click();
+
+
+            link.remove();
+
+
+            statusText.textContent =
+                "⬇️ 已開啟 MP3 下載";
+
+        }
+
+
+        this.textContent =
+            originalText;
+
+
+        this.disabled =
+            false;
+
+    }
+);
+
+
+/* =====================================================
+   下載 SRT
+===================================================== */
+
+downloadSRT.addEventListener(
+    "click",
+    async function() {
+
+
+        const fileName =
+            songSelect.value;
+
+
+        if (!fileName) {
+
+
+            alert(
+                "請先選擇歌曲！"
+            );
+
+
+            return;
+
+        }
+
+
+        const srtURL =
+            getSRTURL();
+
+
+        const songName =
+            fileName.replace(
+                /\.mp3$/i,
+                ""
+            );
+
+
+        const srtFileName =
+            songName + ".srt";
+
+
+        const originalText =
+            this.textContent;
+
+
+        this.textContent =
+            "⏳ 下載中...";
+
+
+        this.disabled =
+            true;
+
+
+        try {
+
+
+            const response =
+                await fetch(
+                    srtURL
+                );
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "SRT不存在"
+                );
+
+            }
+
+
+            const blob =
+                await response.blob();
+
+
+            const blobURL =
+                URL.createObjectURL(
+                    blob
+                );
+
+
+            const link =
+                document.createElement(
+                    "a"
+                );
+
+
+            link.href =
+                blobURL;
+
+
+            link.download =
+                srtFileName;
+
+
+            document.body.appendChild(
+                link
+            );
+
+
+            link.click();
+
+
+            link.remove();
+
+
+            URL.revokeObjectURL(
+                blobURL
+            );
+
+
+            statusText.textContent =
+                "✅ SRT 字幕下載完成";
+
+
+        } catch(error) {
+
+
+            console.error(
+                error
+            );
+
+
+            alert(
+                "找不到這首歌曲的 SRT 字幕！\n\n"
+                + srtFileName
+            );
+
+
+            statusText.textContent =
+                "⚠ 找不到 SRT 字幕";
+
+        }
+
+
+        this.textContent =
+            originalText;
+
+
+        this.disabled =
+            false;
+
+    }
+);
+
+
+/* =====================================================
+   AudioContext
+===================================================== */
+
+function createAudioAnalyzer() {
+
+
+    if (audioContext) {
+
+        return;
+
+    }
+
+
+    try {
+
+
+        audioContext =
+            new (
+                window.AudioContext ||
+                window.webkitAudioContext
+            )();
+
+
+        analyser =
+            audioContext.createAnalyser();
+
+
+        analyser.fftSize =
+            2048;
+
+
+        dataArray =
+            new Uint8Array(
+                analyser.fftSize
+            );
+
+
+        source =
+            audioContext
+                .createMediaElementSource(
+                    audio
+                );
+
+
+        source.connect(
+            analyser
+        );
+
+
+        analyser.connect(
+            audioContext.destination
+        );
+
+
+    } catch(error) {
+
+
+        console.error(
+            "AudioContext錯誤",
+            error
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   SRT
+===================================================== */
+
+async function loadSRT(
+    url
+) {
+
+
+    try {
+
+
+        const response =
+            await fetch(
+                url
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "SRT不存在"
+            );
+
+        }
+
+
+        const text =
+            await response.text();
+
+
+        lyrics =
+            parseSRT(
+                text
+            );
+
+
+        displayLyrics();
+
+
+    } catch(error) {
+
+
+        console.log(
+            "沒有SRT：",
+            error
+        );
+
+
+        lyrics = [];
+
+
+        lyricsBox.innerHTML =
+            `<div class="lyric-line">
+                ♪ 此歌曲沒有 SRT 歌詞 ♪
+            </div>`;
+
+    }
+
+}
+
+
+/* =====================================================
+   SRT解析
+===================================================== */
+
+function parseSRT(
+    data
+) {
+
+
+    const blocks =
+        data
+        .replace(
+            /\r/g,
+            ""
+        )
+        .split(
+            /\n\s*\n/
+        );
+
+
+    const result = [];
+
+
+    blocks.forEach(
+        block => {
+
+
+            const lines =
+                block.split(
+                    "\n"
+                );
+
+
+            let timeLine =
+                "";
+
+
+            let textLines =
+                [];
+
+
+            for (
+                let i = 0;
+                i < lines.length;
+                i++
+            ) {
+
+
+                if (
+                    lines[i]
+                    .includes("-->")
+                ) {
+
+
+                    timeLine =
+                        lines[i];
+
+
+                    textLines =
+                        lines.slice(
+                            i + 1
+                        );
+
+
+                    break;
+
+                }
+
+            }
+
+
+            if (!timeLine) return;
+
+
+            const times =
+                timeLine.split(
+                    "-->"
+                );
+
+
+            const start =
+                timeToSeconds(
+                    times[0].trim()
+                );
+
+
+            const end =
+                timeToSeconds(
+                    times[1].trim()
+                );
+
+
+            const text =
+                textLines
+                .join(" ")
+                .replace(
+                    /<[^>]*>/g,
+                    ""
+                )
+                .trim();
+
+
+            if (text) {
+
+
+                result.push({
+
+                    start:
+                        start,
+
+                    end:
+                        end,
+
+                    text:
+                        text
+
+                });
+
+            }
+
+        }
+    );
+
+
+    return result;
+
+}
+
+
+/* =====================================================
+   時間轉秒
+===================================================== */
+
+function timeToSeconds(
+    time
+) {
+
+
+    time =
+        time.replace(
+            ",",
+            "."
+        );
+
+
+    const p =
+        time.split(
+            ":"
+        );
+
+
+    return (
+        Number(p[0]) * 3600 +
+        Number(p[1]) * 60 +
+        Number(p[2])
+    );
+
+}
+
+
+/* =====================================================
+   顯示歌詞
+===================================================== */
+
+function displayLyrics() {
+
+
+    lyricsBox.innerHTML =
+        "";
+
+
+    lyrics.forEach(
+        (item,index) => {
+
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+
+            div.className =
+                "lyric-line";
+
+
+            div.id =
+                "lyric-" +
+                index;
+
+
+            div.textContent =
+                item.text;
+
+
+            lyricsBox.appendChild(
+                div
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   同步歌詞
+===================================================== */
+
+audio.addEventListener(
+    "timeupdate",
+    function() {
+
+
+        const currentTime =
+            audio.currentTime;
+
+
+        let activeIndex =
+            -1;
+
+
+        for (
+            let i = 0;
+            i < lyrics.length;
+            i++
+        ) {
+
+
+            if (
+                currentTime >=
+                lyrics[i].start
+                &&
+                currentTime <=
+                lyrics[i].end
+            ) {
+
+
+                activeIndex =
+                    i;
+
+
+                break;
+
+            }
+
+        }
+
+
+        document
+            .querySelectorAll(
+                ".lyric-line"
+            )
+            .forEach(
+                el => {
+
+                    el.classList.remove(
+                        "active"
+                    );
+
+                }
+            );
+
+
+        if (
+            activeIndex >= 0
+        ) {
+
+
+            const current =
+                document.getElementById(
+                    "lyric-" +
+                    activeIndex
+                );
+
+
+            if (current) {
+
+
+                current.classList.add(
+                    "active"
+                );
+
+
+                current.scrollIntoView({
+
+                    behavior:
+                        "smooth",
+
+                    block:
+                        "center"
+
+                });
+
+            }
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   Canvas
+===================================================== */
+
+function resizeCanvas() {
+
+
+    const rect =
+        canvas.getBoundingClientRect();
+
+
+    const dpr =
+        window.devicePixelRatio ||
+        1;
+
+
+    canvas.width =
+        rect.width * dpr;
+
+
+    canvas.height =
+        rect.height * dpr;
+
+
+    ctx.setTransform(
+        dpr,
+        0,
+        0,
+        dpr,
+        0,
+        0
+    );
+
+}
+
+
+window.addEventListener(
+    "resize",
+    resizeCanvas
+);
+
+
+/* =====================================================
+   啟動波形
+===================================================== */
+
+function startWave() {
+
+
+    if (!animationID) {
+
+        drawWave();
+
+    }
+
+}
+
+
+/* =====================================================
+   動態波形
+===================================================== */
+
+function drawWave() {
+
+
+    animationID =
+        requestAnimationFrame(
+            drawWave
+        );
+
+
+    const width =
+        canvas.clientWidth;
+
+
+    const height =
+        canvas.clientHeight;
+
+
+    ctx.clearRect(
+        0,
+        0,
+        width,
+        height
+    );
+
+
+    if (!analyser) {
+
+        drawIdleWave(
+            width,
+            height
+        );
+
+        return;
+
+    }
+
+
+    analyser.getByteTimeDomainData(
+        dataArray
+    );
+
+
+    ctx.beginPath();
+
+
+    const sliceWidth =
+        width /
+        dataArray.length;
+
+
+    let x = 0;
+
+
+    for (
+        let i = 0;
+        i < dataArray.length;
+        i++
+    ) {
+
+
+        const v =
+            dataArray[i] /
+            128.0;
+
+
+        const y =
+            height / 2 +
+            (v - 1) *
+            height *
+            0.42;
+
+
+        if (i === 0) {
+
+            ctx.moveTo(
+                x,
+                y
+            );
+
+        } else {
+
+            ctx.lineTo(
+                x,
+                y
+            );
+
+        }
+
+
+        x += sliceWidth;
+
+    }
+
+
+    ctx.shadowBlur =
+        18;
+
+
+    ctx.shadowColor =
+        "#60a5fa";
+
+
+    ctx.lineWidth =
+        3;
+
+
+    ctx.strokeStyle =
+        "#60a5fa";
+
+
+    ctx.stroke();
+
+
+    ctx.shadowBlur =
+        0;
+
+
+    ctx.lineWidth =
+        1;
+
+
+    ctx.strokeStyle =
+        "rgba(255,255,255,0.9)";
+
+
+    ctx.stroke();
+
+}
+
+
+/* =====================================================
+   待機波形
+===================================================== */
+
+function drawIdleWave(
+    width,
+    height
+) {
+
+
+    ctx.beginPath();
+
+
+    for (
+        let x = 0;
+        x < width;
+        x += 5
+    ) {
+
+
+        const y =
+            height / 2 +
+            Math.sin(
+                x / 25
+            ) * 7;
+
+
+        if (x === 0) {
+
+            ctx.moveTo(
+                x,
+                y
+            );
+
+        } else {
+
+            ctx.lineTo(
+                x,
+                y
+            );
+
+        }
+
+    }
+
+
+    ctx.lineWidth =
+        2;
+
+
+    ctx.strokeStyle =
+        "rgba(96,165,250,0.45)";
+
+
+    ctx.stroke();
+
+}
+
+
+/* =====================================================
+   播放事件
+===================================================== */
+
+audio.addEventListener(
+    "play",
+    async function() {
+
+
+        if (
+            audioContext &&
+            audioContext.state ===
+            "suspended"
+        ) {
+
+            await audioContext.resume();
+
+        }
+
+
+        statusText.textContent =
+            "🔊 正在播放";
+
+
+        startWave();
+
+    }
+);
+
+
+audio.addEventListener(
+    "pause",
+    function() {
+
+
+        statusText.textContent =
+            "⏸ 已暫停";
+
+    }
+);
+
+
+audio.addEventListener(
+    "ended",
+    function() {
+
+
+        statusText.textContent =
+            "🎉 播放完成";
+
+    }
+);
+
+
+audio.addEventListener(
+    "error",
+    function() {
+
+
+        statusText.textContent =
+            "❌ MP3 載入失敗";
+
+    }
+);
+
+
+/* =====================================================
+   初始化
+===================================================== */
+
+resizeCanvas();
+
+
+drawIdleWave(
+    canvas.clientWidth,
+    canvas.clientHeight
+);
+
+</script>
+
+
+
+
+</body></html>
