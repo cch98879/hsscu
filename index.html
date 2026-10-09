@@ -1,2529 +1,1071 @@
 <!DOCTYPE html>
-<html lang="zh-Hant"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-
-
+<html lang="zh-Hant"><head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>美港西社區大學_歡迎評鑑委員</title>
+<title>一起讓學習發光｜我的音樂創作</title>
 
 <style>
-
-* {
-    box-sizing: border-box;
+:root {
+    --bg-image: none;
+    --blue: #55c8ff;
+    --panel: rgba(5, 18, 42, 0.82);
 }
+
+* { box-sizing: border-box; }
 
 body {
-
     margin: 0;
-
     min-height: 100vh;
-
-    font-family:
-        "Noto Sans TC",
-        "Microsoft JhengHei",
-        sans-serif;
-
-    background:
-        radial-gradient(
-            circle at 50% 10%,
-            #304a87 0%,
-            #111a35 45%,
-            #050812 100%
-        );
-
-    color: white;
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    padding: 20px;
-
+    font-family: "Microsoft JhengHei", "Noto Sans TC", sans-serif;
+    color: #fff;
+    background: #061226;
 }
 
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background-image:
+        linear-gradient(rgba(1, 8, 24, .62), rgba(1, 8, 24, .86)),
+        var(--bg-image);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: radial-gradient(ellipse at top, rgba(0,130,255,.20), transparent 65%);
+}
+
+.page {
+    width: min(960px, 94%);
+    margin: 0 auto;
+    padding: 28px 0 36px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 22px;
+}
+
+header h1 {
+    margin: 0 0 8px;
+    font-size: clamp(23px, 4vw, 36px);
+    letter-spacing: 2px;
+    text-shadow: 0 0 18px rgba(0,174,255,.7);
+}
+
+header p {
+    margin: 0;
+    color: #b8d8f7;
+    font-size: 14px;
+}
 
 .player {
-
-    width: 100%;
-
-    max-width: 950px;
-
-    padding: 30px;
-
-    border-radius: 25px;
-
-    background:
-        rgba(10,18,38,0.94);
-
-    border:
-        1px solid
-        rgba(255,255,255,0.12);
-
-    box-shadow:
-        0 25px 80px
-        rgba(0,0,0,0.55);
-
-    backdrop-filter:
-        blur(15px);
-
+    position: relative;
+    padding: clamp(16px, 4vw, 30px);
+    overflow: hidden;
+    border: 1px solid rgba(96,190,255,.38);
+    border-radius: 24px;
+    background: var(--panel);
+    box-shadow: 0 16px 55px rgba(0,0,0,.35),
+                inset 0 0 35px rgba(0,120,255,.08);
+    backdrop-filter: blur(12px);
 }
 
-
-/* =========================
-   標題
-========================= */
-
-h1 {
-
-    text-align: center;
-
-    margin:
-        0 0 25px;
-
-    font-size: 30px;
-
-    letter-spacing: 3px;
-
-}
-
-
-/* =========================
-   選歌
-========================= */
-
-.select-area {
-
+.settings {
     display: grid;
-
-    grid-template-columns:
-        1fr
-        auto
-        auto
-        auto;
-
-    gap: 10px;
-
-    margin-bottom: 20px;
-
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 14px;
 }
 
+.field { min-width: 0; }
 
-select {
+.field label {
+    display: block;
+    margin-bottom: 6px;
+    color: #b9ddff;
+    font-size: 13px;
+}
 
-    height: 52px;
+input, select, button { font: inherit; }
 
-    border-radius: 12px;
-
-    border:
-        1px solid #475569;
-
-    background:
-        #18233f;
-
-    color: white;
-
-    padding:
-        0 15px;
-
-    font-size: 17px;
-
+input, select {
+    width: 100%;
+    min-height: 42px;
+    padding: 10px 12px;
+    color: #fff;
+    border: 1px solid rgba(130,194,255,.32);
+    border-radius: 10px;
+    background: rgba(2,12,31,.88);
     outline: none;
-
 }
 
-
-select:focus {
-
-    border-color:
-        #60a5fa;
-
-    box-shadow:
-        0 0 15px
-        rgba(96,165,250,0.4);
-
+input:focus, select:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 2px rgba(85,200,255,.12);
 }
 
+select option {
+    color: #fff;
+    background: #07172f;
+}
+
+.song-row {
+    display: grid;
+    grid-template-columns: minmax(0,1fr) auto;
+    gap: 10px;
+    align-items: end;
+    margin: 12px 0;
+}
 
 button {
-
-    height: 52px;
-
-    padding:
-        0 22px;
-
-    border: none;
-
-    border-radius: 12px;
-
-    color: white;
-
-    font-size: 16px;
-
-    font-weight: bold;
-
+    min-height: 42px;
+    padding: 10px 16px;
+    color: #fff;
+    border: 1px solid rgba(120,205,255,.4);
+    border-radius: 10px;
+    background: linear-gradient(135deg,#0877c9,#1744a2);
     cursor: pointer;
-
-    transition:
-        all 0.2s ease;
-
-    white-space: nowrap;
-
+    transition: transform .15s, filter .15s;
 }
-
 
 button:hover {
-
-    transform:
-        translateY(-2px);
-
-    box-shadow:
-        0 8px 25px
-        rgba(59,130,246,0.4);
-
+    filter: brightness(1.18);
+    transform: translateY(-1px);
 }
 
-
-.play-button {
-
-    background:
-        linear-gradient(
-            135deg,
-            #2563eb,
-            #7c3aed
-        );
-
-}
-
-
-.download-mp3 {
-
-    background:
-        linear-gradient(
-            135deg,
-            #059669,
-            #047857
-        );
-
-}
-
-
-.download-srt {
-
-    background:
-        linear-gradient(
-            135deg,
-            #d97706,
-            #b45309
-        );
-
-}
-
-
-.refresh-button {
-
-    background:
-        linear-gradient(
-            135deg,
-            #475569,
-            #334155
-        );
-
-}
-
-
-/* =========================
-   歌曲資訊
-========================= */
-
-.song-title {
-
-    text-align: center;
-
-    font-size: 25px;
-
-    font-weight: bold;
-
-    margin:
-        15px 0 5px;
-
-}
-
-
-.status {
-
-    text-align: center;
-
-    color: #94a3b8;
-
-    margin-bottom: 20px;
-
-}
-
-
-.song-count {
-
-    text-align: center;
-
-    margin-top: 10px;
-
-    margin-bottom: 15px;
-
-    color: #64748b;
-
-    font-size: 14px;
-
-}
-
-
-/* =========================
-   波形
-========================= */
-
-.wave-box {
-
-    position: relative;
-
-    width: 100%;
-
-    height: 260px;
-
-    border-radius: 20px;
-
-    overflow: hidden;
-
-    background:
-
-        radial-gradient(
-            circle,
-            rgba(59,130,246,0.18),
-            transparent 65%
-        ),
-
-        rgba(0,0,0,0.35);
-
-    border:
-        1px solid
-        rgba(255,255,255,0.08);
-
-}
-
-
-#waveCanvas {
-
-    width: 100%;
-
-    height: 100%;
-
-    display: block;
-
-}
-
-
-.wave-line {
-
-    position: absolute;
-
-    left: 0;
-
-    right: 0;
-
-    top: 50%;
-
-    height: 1px;
-
-    background:
-        rgba(255,255,255,0.15);
-
-    pointer-events: none;
-
-}
-
-
-/* =========================
-   歌詞
-========================= */
-
-.lyrics {
-
-    height: 190px;
-
-    overflow-y: scroll;
-
-    /* 隱藏捲軸，但仍然可以用滑鼠滾輪或觸控滑動 */
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-
-    margin-top: 20px;
-
-    padding:
-        25px 15px;
-
-    border-radius: 15px;
-
-    background:
-        rgba(0,0,0,0.20);
-
-    text-align: center;
-
-    scroll-behavior: smooth;
-
-}
-
-
-.lyric-line {
-
-    color: #64748b;
-
-    font-size: 18px;
-
-    margin:
-        12px 0;
-
-    transition:
-        all 0.3s ease;
-
-}
-
-
-.lyric-line.active {
-
-    color: white;
-
-    font-size: 26px;
-
-    font-weight: bold;
-
-    text-shadow:
-        0 0 15px #60a5fa,
-        0 0 30px #2563eb;
-
-    transform:
-        scale(1.05);
-
-}
-
-
-/* =========================
-   Audio
-========================= */
-
-audio {
-
-    width: 100%;
-
-    margin-top: 20px;
-
-}
-
-
-/* =========================
-   手機
-========================= */
-
-@media(max-width:800px) {
-
-    .select-area {
-
-        grid-template-columns:
-            1fr 1fr;
-
-    }
-
-
-    select {
-
-        grid-column:
-            1 / -1;
-
-    }
-
-
-    button {
-
-        width: 100%;
-
-    }
-
-}
-
-
-@media(max-width:500px) {
-
-    .player {
-
-        padding: 20px;
-
-    }
-
-
-    h1 {
-
-        font-size: 24px;
-
-    }
-
-
-    .select-area {
-
-        display: flex;
-
-        flex-direction: column;
-
-    }
-
-
-    select {
-
-        width: 100%;
-
-    }
-
-
-    button {
-
-        width: 100%;
-
-    }
-
-
-    .wave-box {
-
-        height: 180px;
-
-    }
-
-
-    .lyrics {
-
-        height: 170px;
-
-    }
-
-}
-
-
-
-/* =========================
-   GitHub 設定
-========================= */
-.github-settings {
-    display: grid;
-    grid-template-columns: 1fr 1fr auto;
-    gap: 10px;
-    margin-bottom: 20px;
-    align-items: end;
-}
-
-.github-field {
-    display: flex;
-    flex-direction: column;
-    gap: 7px;
-}
-
-.github-field label {
-    font-size: 14px;
-    color: #cbd5e1;
-    font-weight: bold;
-}
-
-.github-field input {
-    height: 52px;
-    width: 100%;
-    border-radius: 12px;
-    border: 1px solid #475569;
-    background: #18233f;
-    color: white;
-    padding: 0 15px;
-    font-size: 17px;
-    outline: none;
-}
-
-.github-field input:focus {
-    border-color: #60a5fa;
-    box-shadow: 0 0 15px rgba(96,165,250,0.4);
-}
-
-.github-field input:disabled {
-    opacity: 0.65;
-    cursor: not-allowed;
-}
-
-.download-html {
-    background: linear-gradient(135deg, #7c3aed, #4f46e5);
-}
-
-.download-html:disabled {
-    opacity: 0.45;
+button:disabled {
+    opacity: .45;
     cursor: not-allowed;
     transform: none;
-    box-shadow: none;
 }
 
-@media(max-width:800px) {
-    .github-settings {
-        grid-template-columns: 1fr 1fr;
-    }
-
-    .download-html {
-        grid-column: 1 / -1;
-        width: 100%;
-    }
+.button-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+    margin: 14px 0;
 }
 
-@media(max-width:500px) {
-    .github-settings {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .github-field,
-    .download-html {
-        width: 100%;
-    }
+.button-row[hidden] {
+    display: none !important;
 }
 
+.button-row button { flex: 1 1 130px; }
+
+button.secondary {
+    background: rgba(255,255,255,.08);
+}
+
+.song-title {
+    margin: 22px 0 8px;
+    text-align: center;
+    font-size: clamp(19px,3.5vw,27px);
+    font-weight: 800;
+    overflow-wrap: anywhere;
+    text-shadow: 0 0 15px rgba(40,160,255,.65);
+}
+
+.status {
+    min-height: 22px;
+    margin: 8px 0;
+    text-align: center;
+    color: #a8ddff;
+    font-size: 13px;
+    overflow-wrap: anywhere;
+}
+
+.lyrics-panel {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 320px;
+    margin: 16px 0 10px;
+    padding: 12px;
+    overflow: hidden;
+    text-align: center;
+    border: 1px solid rgba(114,191,255,.28);
+    border-radius: 16px;
+    background-color: rgba(0,0,0,.40);
+    background-image: var(--lyrics-image, none);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: inset 0 0 35px rgba(0,0,0,.25);
+}
+
+#lyrics {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.lyric-line {
+    display: none;
+    flex: 1 1 0;
+    min-height: 0;
+    width: 100%;
+    margin: 0;
+    padding: 3px 2px;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: clamp(14px,2.3vw,23px);
+    font-weight: 700;
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    opacity: 0;
+    transform: translateY(5px);
+    transition: opacity .35s ease,
+                transform .35s ease,
+                font-size .35s ease;
+    text-shadow: 0 2px 5px #000, 0 0 12px #000;
+}
+
+.lyric-line.visible { display: flex; }
+
+.lyric-line.prev-2 {
+    opacity: .20;
+    font-size: clamp(12px,1.8vw,17px);
+}
+
+.lyric-line.prev-1 {
+    opacity: .48;
+    font-size: clamp(14px,2.2vw,21px);
+}
+
+.lyric-line.active {
+    opacity: 1;
+    flex-grow: 1.5;
+    color: #fff;
+    font-size: clamp(23px,4vw,40px);
+    font-weight: 900;
+    transform: translateY(0);
+    text-shadow: 0 2px 5px #000,
+                 0 0 12px #000,
+                 0 0 24px #0077ff,
+                 0 0 35px rgba(0,174,255,.65);
+}
+
+.lyric-line.next-1 {
+    opacity: .48;
+    font-size: clamp(14px,2.2vw,21px);
+}
+
+.lyric-line.next-2 {
+    opacity: .20;
+    font-size: clamp(12px,1.8vw,17px);
+}
+
+.lyric-line.message-line {
+    display: flex;
+    flex: 1 1 auto;
+    opacity: 1;
+    font-size: clamp(18px,3vw,28px);
+    font-weight: 800;
+    transform: none;
+}
+
+.wave-box {
+    position: relative;
+    width: 100%;
+    height: 100px;
+    margin: 8px auto 16px;
+}
+
+#waveCanvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.wave-line {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    border-top: 1px solid rgba(105,196,255,.22);
+    pointer-events: none;
+}
+
+audio {
+    display: block;
+    width: 100%;
+    margin-top: 12px;
+    border-radius: 30px;
+}
+
+.hint {
+    margin: 15px 0 0;
+    color: #a8c5e5;
+    font-size: 12px;
+    line-height: 1.8;
+    text-align: center;
+}
+
+/* 下載版：隱藏設定及歌曲輸入區 */
+body.standalone-song .settings,
+body.standalone-song label[for="songSelect"],
+body.standalone-song #songSelect,
+body.standalone-song .song-row,
+body.standalone-song #downloadPageRow {
+    display: none !important;
+}
+
+@media (max-width: 600px) {
+    .page {
+        width: 94%;
+        padding-top: 18px;
+    }
+
+    .settings {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .song-row { grid-template-columns: 1fr; }
+    .song-row button { width: 100%; }
+
+    .lyrics-panel {
+        height: 250px;
+        padding: 8px;
+    }
+
+    .lyric-line.active {
+        font-size: clamp(21px,5.8vw,30px);
+    }
+
+    .lyric-line.prev-1,
+    .lyric-line.next-1 {
+        font-size: clamp(13px,3.8vw,18px);
+    }
+
+    .lyric-line.prev-2,
+    .lyric-line.next-2 {
+        font-size: clamp(11px,3.2vw,15px);
+    }
+
+    .wave-box { height: 75px; }
+
+    .button-row button { flex-basis: 100px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .lyric-line { transition: none; }
+}
 </style>
-
 </head>
 
+<body class="standalone-song">
+<div class="page">
 
-<body>
+    <header>
+        <h1>🎵 我的音樂創作</h1>
+    </header>
 
+    <main class="player">
 
-<div class="player">
+        <div class="settings">
+            <div class="field">
+                <label for="githubUser">GitHub 帳號</label>
+                <input id="githubUser" type="text" value="cch98879">
+            </div>
 
-
-    <h1>🎵 美港西社區大學_歡迎評鑑委員蒞臨指導</h1>
-
-    <!-- =====================
-         GitHub 設定
-    ====================== -->
-    <div class="github-settings">
-
-        <div class="github-field">
-            <label for="githubUser"></label>
-            <input type="hidden" id="githubUser" value="cch98879" autocomplete="off" disabled="disabled">
+            <div class="field">
+                <label for="githubRepo">GitHub 儲存庫</label>
+                <input id="githubRepo" type="text" value="hsscu">
+            </div>
         </div>
 
-        <div class="github-field">
-            <label for="githubRepo"></label>
-            <input type="hidden" id="githubRepo" value="hsscu" autocomplete="off" disabled="disabled">
+        <div class="field">
+            <label for="songSelect">
+                選擇音樂（自動列出 mp3 資料夾中的歌曲）
+            </label>
+            <select id="songSelect"><option value="">請選擇歌曲</option><option value="不想上課">不想上課</option><option value="五月的風，媽媽的愛1">五月的風，媽媽的愛1</option><option value="五月的風，媽媽的愛2">五月的風，媽媽的愛2</option><option value="五月的風，媽媽的愛3">五月的風，媽媽的愛3</option><option value="五月的風，媽媽的愛4">五月的風，媽媽的愛4</option><option value="日出幸福早餐店">日出幸福早餐店</option><option value="月光下的祝福">月光下的祝福</option><option value="冬至這一天_1">冬至這一天_1</option><option value="冬至這一天_2">冬至這一天_2</option><option value="阮的希望所在(台語)">阮的希望所在(台語)</option><option value="信賢的歌">信賢的歌</option><option value="孩子們，加油">孩子們，加油</option><option value="班歌：讓AI解決我的生活大小事">班歌：讓AI解決我的生活大小事</option><option value="媽媽的手">媽媽的手</option><option value="媽媽的白髮，是愛的花">媽媽的白髮，是愛的花</option><option value="彰化社大">彰化社大</option><option value="彰化社大春季班">彰化社大春季班</option><option value="彰化社區大學">彰化社區大學</option><option value="端午粽葉飄香1">端午粽葉飄香1</option><option value="端午粽葉飄香2">端午粽葉飄香2</option><option value="端午粽葉飄香3">端午粽葉飄香3</option><option value="端午粽葉飄香4">端午粽葉飄香4</option><option value="學習的路上">學習的路上</option><option value="讓AI解決我的生活大小事">讓AI解決我的生活大小事</option><option value="TEAM TAIWAN_1">TEAM TAIWAN_1</option><option value="TEAM TAIWAN_2">TEAM TAIWAN_2</option></select>
         </div>
 
-        <button id="downloadHTML" class="download-html" disabled="disabled" style="display:none;">
-            ⬇️ 下載 mp3.html
-        </button>
-
-    </div>
-
-
-
-    <!-- =====================
-         選擇歌曲
-    ====================== -->
-
-    <div class="select-area">
-
-
-        <select id="songSelect"><option value="">🎵 請選擇歌曲</option><option value="一起讓學習發光.mp3">一起讓學習發光</option></select>
-
-
-        <button id="playButton" class="play-button">
-
-            ▶ 播放
-
-        </button>
-
-
-        <button id="downloadMP3" class="download-mp3">
-
-            ⬇️ 下載 MP3 音樂
-
-        </button>
-
-
-        <button id="downloadSRT" class="download-srt">
-
-            📄 下載 SRT 字幕
-
-        </button>
-
-
-
-
-
-    </div>
-
-
-    <!-- =====================
-         歌曲資訊
-    ====================== -->
-
-    <div class="song-title" id="songTitle">
-
-        尚未選擇歌曲
-
-    </div>
-
-
-    <div class="status" id="status">歌曲清單載入完成</div>
-
-
-    <div class="song-count" id="songCount">目前共有 1 首歌曲</div>
-
-
-    <!-- =====================
-         動態波形
-    ====================== -->
-
-    <div class="wave-box">
-
-        <canvas id="waveCanvas" width="886" height="258">
-        </canvas>
-
-        <div class="wave-line"></div>
-
-    </div>
-
-
-    <!-- =====================
-         歌詞
-    ====================== -->
-
-    <div class="lyrics" id="lyrics">
-
-        <div class="lyric-line">
-
-            ♪ 等待歌詞載入 ♪
-
+        <div class="song-row">
+            <div class="field">
+                <label for="songNameInput">歌曲名稱（不含副檔名）</label>
+                <input id="songNameInput" type="text" placeholder="例如：我的歌曲" value="一起讓學習發光">
+            </div>
+            <button id="loadButton" type="button">載入歌曲</button>
         </div>
 
-    </div>
+        <div class="button-row" id="downloadPageRow">
+            <button id="downloadPage" type="button">⬇ 下載網頁</button>
+        </div>
+
+        <div class="button-row">
+            <button id="playButton" type="button">▶ 播放歌曲</button>
+            <button id="downloadMP3" class="secondary" type="button">
+                ⬇ 下載 MP3
+            </button>
+            <button id="downloadSRT" class="secondary" type="button">
+                ⬇ 下載 SRT 字幕
+            </button>
+        </div>
+
+        <div id="songTitle" class="song-title">請選擇一首歌曲</div>
+
+        <div id="status" class="status" role="status" aria-live="polite">歌曲清單載入完成，共 26 首</div>
+
+        <section class="lyrics-panel" aria-label="KTV 同步歌詞">
+            <div id="lyrics">
+                <div class="lyric-line message-line">
+                    ♪ 歌詞將在這裡同步顯示 ♪
+                </div>
+            </div>
+        </section>
+
+        <div class="wave-box">
+            <canvas id="waveCanvas" width="898" height="100"></canvas>
+            <div class="wave-line"></div>
+        </div>
+
+        <audio id="audio" controls="" preload="metadata" crossorigin="anonymous"></audio>
 
 
-    <!-- =====================
-         MP3播放器
-    ====================== -->
 
-    <audio id="audio" controls="" preload="auto" crossorigin="anonymous">
-    </audio>
-
-
+    </main>
 </div>
 
-
-
 <script>
+"use strict";
 
-
-/* =====================================================
-   GitHub 設定
-===================================================== */
-
-let GITHUB_USER = "cch98879";
-let GITHUB_REPO = "hsscu";
-const MP3_FOLDER = "mp3";
-
-const githubUserInput =
-    document.getElementById("githubUser");
-
-const githubRepoInput =
-    document.getElementById("githubRepo");
-
-const downloadHTML =
-    document.getElementById("downloadHTML");
-
-function updateGitHubConfig() {
-
-    const user =
-        githubUserInput.value.trim();
-
-    const repo =
-        githubRepoInput.value.trim();
-
-    if (user) {
-        GITHUB_USER = user;
-    }
-
-    if (repo) {
-        GITHUB_REPO = repo;
-    }
-}
-
-function getAPIURL() {
-
-    return (
-        "https://api.github.com/repos/"
-        + encodeURIComponent(GITHUB_USER)
-        + "/"
-        + encodeURIComponent(GITHUB_REPO)
-        + "/contents/"
-        + MP3_FOLDER
-    );
-}
-
-function getMP3BaseURL() {
-
-    return (
-        "https://"
-        + GITHUB_USER
-        + ".github.io/"
-        + GITHUB_REPO
-        + "/"
-        + MP3_FOLDER
-        + "/"
-    );
-}
-
-
-/* =====================================================
-   HTML元素
-===================================================== */
-
-const songSelect =
-    document.getElementById(
-        "songSelect"
-    );
-
-updateGitHubConfig();
-
-
-const playButton =
-    document.getElementById(
-        "playButton"
-    );
-
-
-const downloadMP3 =
-    document.getElementById(
-        "downloadMP3"
-    );
-
-
-const downloadSRT =
-    document.getElementById(
-        "downloadSRT"
-    );
-
-
-const refreshButton =
-    document.getElementById(
-        "refreshButton"
-    );
-
-
-const audio =
-    document.getElementById(
-        "audio"
-    );
-
-
-const songTitle =
-    document.getElementById(
-        "songTitle"
-    );
-
-
-const statusText =
-    document.getElementById(
-        "status"
-    );
-
-
-const songCount =
-    document.getElementById(
-        "songCount"
-    );
-
-
-const lyricsBox =
-    document.getElementById(
-        "lyrics"
-    );
-
-
-const canvas =
-    document.getElementById(
-        "waveCanvas"
-    );
-
-
-const ctx =
-    canvas.getContext(
-        "2d"
-    );
-
-
-/* =====================================================
-   Audio
-===================================================== */
-
-let audioContext = null;
-
-let analyser = null;
-
-let source = null;
-
-let dataArray = null;
-
-let animationID = null;
-
-
-/* =====================================================
-   歌詞
-===================================================== */
+/* 取得網頁元件 */
+const githubUser = document.getElementById("githubUser");
+const githubRepo = document.getElementById("githubRepo");
+const songSelect = document.getElementById("songSelect");
+const songNameInput = document.getElementById("songNameInput");
+const loadButton = document.getElementById("loadButton");
+const playButton = document.getElementById("playButton");
+const downloadMP3 = document.getElementById("downloadMP3");
+const downloadSRT = document.getElementById("downloadSRT");
+const downloadPage = document.getElementById("downloadPage");
+const downloadPageRow = document.getElementById("downloadPageRow");
+const songTitle = document.getElementById("songTitle");
+const statusText = document.getElementById("status");
+const lyricsBox = document.getElementById("lyrics");
+const lyricsPanel = document.querySelector(".lyrics-panel");
+const audio = document.getElementById("audio");
+const canvas = document.getElementById("waveCanvas");
+const ctx = canvas.getContext("2d");
 
 let lyrics = [];
-
-
-/* =====================================================
-   初始化
-===================================================== */
-
-window.addEventListener(
-    "load",
-    loadSongs
-);
-
-
-/* =====================================================
-   自動讀取 GitHub MP3
-===================================================== */
-
-async function loadSongs() {
-
-
-    statusText.textContent =
-        "正在讀取 GitHub mp3 資料夾...";
-
-
-    songSelect.innerHTML = "";
-
-
-    songSelect.disabled = true;
-
-
-    try {
-
-
-        const response =
-            await fetch(
-                getAPIURL()
-            );
-
-
-        if (!response.ok) {
-
-            throw new Error(
-                "GitHub API 無法讀取"
-            );
-
-        }
-
-
-        const files =
-            await response.json();
-
-
-        /*
-         * 只抓 MP3
-         */
-
-        const mp3Files =
-            files
-            .filter(
-                file => {
-
-                    return (
-                        file.type ===
-                        "file"
-                        &&
-                        file.name
-                            .toLowerCase()
-                            .endsWith(
-                                ".mp3"
-                            )
-                    );
-
-                }
-            )
-            .sort(
-                (a,b) =>
-                    a.name.localeCompare(
-                        b.name,
-                        "zh-Hant"
-                    )
-            );
-
-
-        if (
-            mp3Files.length === 0
-        ) {
-
-
-            songSelect.innerHTML =
-                `<option>
-                    mp3 資料夾目前沒有 MP3
-                </option>`;
-
-
-            statusText.textContent =
-                "找不到 MP3";
-
-
-            songCount.textContent =
-                "";
-
-
-            return;
-
-        }
-
-
-        /*
-         * 第一個選項
-         */
-
-        const firstOption =
-            document.createElement(
-                "option"
-            );
-
-
-        firstOption.value =
-            "";
-
-
-        firstOption.textContent =
-            "🎵 請選擇歌曲";
-
-
-        songSelect.appendChild(
-            firstOption
-        );
-
-
-        /*
-         * 建立歌曲清單
-         */
-
-        mp3Files.forEach(
-            file => {
-
-
-                const option =
-                    document.createElement(
-                        "option"
-                    );
-
-
-                const songName =
-                    file.name.replace(
-                        /\.mp3$/i,
-                        ""
-                    );
-
-
-                option.value =
-                    file.name;
-
-
-                option.textContent =
-                    songName;
-
-
-                songSelect.appendChild(
-                    option
-                );
-
-            }
-        );
-
-
-        songSelect.disabled =
-            false;
-
-
-        songCount.textContent =
-            `目前共有 ${mp3Files.length} 首歌曲`;
-
-
-        statusText.textContent =
-            "歌曲清單載入完成";
-
-
-    } catch(error) {
-
-
-        console.error(error);
-
-
-        songSelect.innerHTML =
-            `<option>
-                ⚠ 無法讀取 GitHub mp3 資料夾
-            </option>`;
-
-
-        statusText.textContent =
-            "❌ GitHub 歌曲清單讀取失敗";
-
-
-        songCount.textContent =
-            "請確認 AI/mp3 資料夾是否存在";
-
+let playRequestID = 0;
+let currentSong = "";
+let animationID = 0;
+let audioContext = null;
+let analyser = null;
+let sourceNode = null;
+let waveformReady = false;
+
+function getBaseURL() {
+    const user = githubUser.value.trim();
+    const repo = githubRepo.value.trim();
+
+    if (!user || !repo) {
+        throw new Error("請輸入 GitHub 帳號及儲存庫名稱");
     }
 
+    return "https://" + user + ".github.io/" +
+        encodeURIComponent(repo) + "/mp3/";
 }
 
+function getFileURL(song, extension) {
+    return getBaseURL() +
+        encodeURIComponent(song) + "." + extension;
+}
 
-/* =====================================================
-   GitHub 設定變更
-===================================================== */
+function setStatus(message) {
+    statusText.textContent = message;
+}
 
-githubUserInput.addEventListener(
-    "input",
-    updateGitHubConfig
-);
+function showMessage(message) {
+    lyricsBox.innerHTML = "";
+    const div = document.createElement("div");
+    div.className = "lyric-line message-line";
+    div.textContent = message;
+    lyricsBox.appendChild(div);
+}
 
-githubRepoInput.addEventListener(
-    "input",
-    updateGitHubConfig
-);
+/* 輸入歌曲名稱後顯示下載網頁按鈕 */
+function updateDownloadPageButton() {
+    downloadPageRow.hidden = !songNameInput.value.trim();
+}
 
+songNameInput.addEventListener("input", updateDownloadPageButton);
 
-/* =====================================================
-   下載 mp3.html
-   注意：使用真正的換行，不把 "\\n" 寫進 HTML
-===================================================== */
+/* 自動讀取 GitHub MP3 清單 */
+async function loadSongList() {
+    const user = githubUser.value.trim();
+    const repo = githubRepo.value.trim();
 
-downloadHTML.addEventListener(
-    "click",
-    function() {
+    if (!user || !repo) {
+        setStatus("請先輸入 GitHub 帳號與儲存庫名稱");
+        return;
+    }
 
-        updateGitHubConfig();
+    songSelect.innerHTML =
+        '<option value="">正在讀取歌曲清單……</option>';
 
-        if (!GITHUB_USER || !GITHUB_REPO) {
-            alert("請輸入 GitHub 帳號與儲存庫名稱！");
+    setStatus("正在讀取 GitHub 歌曲清單……");
+
+    const apiURL = "https://api.github.com/repos/" +
+        encodeURIComponent(user) + "/" +
+        encodeURIComponent(repo) + "/contents/mp3";
+
+    try {
+        const response = await fetch(apiURL);
+
+        if (!response.ok) {
+            throw new Error(
+                response.status === 404
+                    ? "找不到 mp3 資料夾，請確認儲存庫路徑"
+                    : "GitHub 清單讀取失敗（HTTP " +
+                      response.status + "）"
+            );
+        }
+
+        const files = await response.json();
+
+        if (!Array.isArray(files)) {
+            throw new Error("GitHub 回傳的資料格式不正確");
+        }
+
+        const songs = files
+            .filter(file =>
+                file.type === "file" && /\.mp3$/i.test(file.name)
+            )
+            .map(file => file.name.replace(/\.mp3$/i, ""))
+            .sort((a, b) => a.localeCompare(b, "zh-Hant"));
+
+        songSelect.innerHTML = "";
+
+        if (songs.length === 0) {
+            songSelect.add(new Option("找不到 MP3 檔案", ""));
+            setStatus("mp3 資料夾內沒有 MP3 檔案");
             return;
         }
 
-        /*
-         * 複製目前完整網頁。
-         * 使用 cloneNode() 後直接設定欄位值與 disabled，
-         * 讓下載後的 mp3.html 一開啟就是鎖定狀態。
-         */
-        const clonedDocument =
-            document.documentElement.cloneNode(true);
+        songSelect.add(new Option("請選擇歌曲", ""));
 
-        const clonedUser =
-            clonedDocument.querySelector("#githubUser");
+        songs.forEach(song => songSelect.add(new Option(song, song)));
 
-        const clonedRepo =
-            clonedDocument.querySelector("#githubRepo");
+        setStatus("歌曲清單載入完成，共 " + songs.length + " 首");
 
-        const clonedDownload =
-            clonedDocument.querySelector("#downloadHTML");
-
-        if (clonedUser) {
-            clonedUser.value = GITHUB_USER;
-            clonedUser.setAttribute("value", GITHUB_USER);
-            clonedUser.disabled = true;
-            clonedUser.setAttribute("disabled", "disabled");
+        if (songs.length === 1) {
+            songSelect.value = songs[0];
+            songNameInput.value = songs[0];
+            updateDownloadPageButton();
+            loadSong(songs[0]);
         }
 
-        if (clonedRepo) {
-            clonedRepo.value = GITHUB_REPO;
-            clonedRepo.setAttribute("value", GITHUB_REPO);
-            clonedRepo.disabled = true;
-            clonedRepo.setAttribute("disabled", "disabled");
+    } catch (error) {
+        songSelect.innerHTML = "";
+        songSelect.add(new Option("請手動輸入歌曲名稱", ""));
+        setStatus(error.message + "；也可手動輸入歌曲名稱");
+        console.error("歌曲清單讀取失敗：", error);
+    }
+}
+
+/* 選擇歌曲 */
+songSelect.addEventListener("change", () => {
+    if (songSelect.value) {
+        songNameInput.value = songSelect.value;
+        updateDownloadPageButton();
+        loadSong(songSelect.value);
+    }
+});
+
+/* SRT 時間轉秒數 */
+function timeToSeconds(time) {
+    const match = time.trim().match(
+        /(\d{2,}):(\d{2}):(\d{2})[,.](\d{1,3})/
+    );
+
+    if (!match) return NaN;
+
+    return Number(match[1]) * 3600 +
+        Number(match[2]) * 60 +
+        Number(match[3]) +
+        Number(match[4].padEnd(3, "0")) / 1000;
+}
+
+/* 解析 SRT */
+function parseSRT(data) {
+    const blocks = data
+        .replace(/^\uFEFF/, "")
+        .replace(/\r/g, "")
+        .trim()
+        .split(/\n\s*\n/);
+
+    const result = [];
+
+    blocks.forEach(block => {
+        const lines = block.split("\n");
+        const timeIndex = lines.findIndex(line => line.includes("-->"));
+
+        if (timeIndex < 0) return;
+
+        const times = lines[timeIndex].split("-->");
+        if (times.length < 2) return;
+
+        const start = timeToSeconds(times[0]);
+        const end = timeToSeconds(times[1]);
+
+        const text = lines.slice(timeIndex + 1)
+            .join(" ")
+            .replace(/<[^>]*>/g, "")
+            .replace(/&nbsp;/gi, " ")
+            .replace(/&amp;/gi, "&")
+            .replace(/&lt;/gi, "<")
+            .replace(/&gt;/gi, ">")
+            .trim();
+
+        if (Number.isFinite(start) &&
+            Number.isFinite(end) &&
+            end > start && text) {
+            result.push({ start, end, text });
+        }
+    });
+
+    return result.sort((a, b) => a.start - b.start);
+}
+
+/* 顯示全部歌詞元素 */
+function displayLyrics() {
+    lyricsBox.innerHTML = "";
+
+    if (!lyrics.length) {
+        showMessage("♪ 等待歌詞同步 ♪");
+        return;
+    }
+
+    lyrics.forEach((item, index) => {
+        const div = document.createElement("div");
+        div.className = "lyric-line";
+        div.id = "lyric-" + index;
+        div.textContent = item.text;
+        lyricsBox.appendChild(div);
+    });
+
+    syncLyrics();
+}
+
+/* KTV 五句歌詞：前兩句、目前句、後兩句 */
+function syncLyrics() {
+    if (!lyrics.length) return;
+
+    const currentTime = audio.currentTime;
+    let activeIndex = -1;
+
+    for (let i = 0; i < lyrics.length; i++) {
+        if (currentTime >= lyrics[i].start &&
+            currentTime < lyrics[i].end) {
+            activeIndex = i;
+            break;
+        }
+    }
+
+    lyrics.forEach((item, index) => {
+        const el = document.getElementById("lyric-" + index);
+        if (!el) return;
+
+        el.classList.remove(
+            "visible", "active", "prev-1", "prev-2",
+            "next-1", "next-2"
+        );
+    });
+
+    if (activeIndex < 0) return;
+
+    const displayMap = [
+        { offset: -2, className: "prev-2" },
+        { offset: -1, className: "prev-1" },
+        { offset: 0, className: "active" },
+        { offset: 1, className: "next-1" },
+        { offset: 2, className: "next-2" }
+    ];
+
+    displayMap.forEach(({ offset, className }) => {
+        const el = document.getElementById(
+            "lyric-" + (activeIndex + offset)
+        );
+
+        if (el) el.classList.add("visible", className);
+    });
+}
+
+/* 載入 SRT */
+async function loadSRT(url, requestID) {
+    lyrics = [];
+    showMessage("♪ 正在載入歌詞…… ♪");
+
+    try {
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            throw new Error("找不到 SRT 字幕檔");
         }
 
-        if (clonedDownload) {
-            clonedDownload.disabled = true;
-            clonedDownload.setAttribute("disabled", "disabled");
+        const text = await response.text();
+        if (requestID !== playRequestID) return;
+
+        lyrics = parseSRT(text);
+        displayLyrics();
+
+        if (lyrics.length) {
+            syncLyrics();
+            setStatus("歌詞載入完成，共 " + lyrics.length + " 句");
+        } else {
+            showMessage("♪ SRT 中沒有可辨識的歌詞 ♪");
+            setStatus("已讀取字幕，但沒有辨識到歌詞");
         }
 
-        /*
-         * 同步下載檔中的 JavaScript 初始值。
-         * 這樣即使原始 HTML 曾經修改過預設值，
-         * 下載後仍會使用目前輸入的 GitHub 設定。
-         */
-        const scripts =
-            clonedDocument.querySelectorAll("script");
+    } catch (error) {
+        if (requestID !== playRequestID) return;
 
-        scripts.forEach(function(script) {
+        lyrics = [];
+        showMessage("♪ 找不到字幕，請確認 SRT 檔名 ♪");
+        setStatus("字幕載入失敗，請確認歌曲名稱與 SRT 檔案");
+        console.warn("SRT 載入失敗：", error);
+    }
+}
 
-            if (!script.textContent.includes(
-                'let GITHUB_USER = "cch98879";'
-            )) {
-                return;
-            }
+/* 載入歌曲、JPG 與 SRT */
+async function loadSong(song) {
+    song = song.trim();
 
-            script.textContent =
-                script.textContent.replace(
-                    /let GITHUB_USER = "[^"]*";/,
-                    'let GITHUB_USER = ' +
-                    JSON.stringify(GITHUB_USER) +
-                    ';'
-                ).replace(
-                    /let GITHUB_REPO = "[^"]*";/,
-                    'let GITHUB_REPO = ' +
-                    JSON.stringify(GITHUB_REPO) +
-                    ';'
-                );
-        });
+    if (!song) {
+        setStatus("請先選擇或輸入歌曲名稱");
+        return;
+    }
 
-        /*
-         * outerHTML 本身會產生真正的換行，
-         * 不使用 literal "\\n" 字串，因此不會在檔案開頭
-         * 或 HTML 內容看到 \\n         */
-        const html =
-            "<!DOCTYPE html>\n" +
-            clonedDocument.outerHTML;
+    currentSong = song;
+    songNameInput.value = song;
+    updateDownloadPageButton();
+    songTitle.textContent = song;
+    audio.pause();
 
-        const blob =
-            new Blob(
-                [html],
-                { type: "text/html;charset=utf-8" }
+    const requestID = ++playRequestID;
+
+    try {
+        const mp3URL = getFileURL(song, "mp3");
+        const srtURL = getFileURL(song, "srt");
+        const jpgURL = getFileURL(song, "jpg");
+
+        setStatus("正在載入歌曲、字幕與背景圖片……");
+
+        audio.src = mp3URL;
+        audio.load();
+
+        lyricsPanel.style.setProperty("--lyrics-image", "none");
+
+        const image = new Image();
+
+        image.onload = () => {
+            if (requestID !== playRequestID) return;
+
+            lyricsPanel.style.setProperty(
+                "--lyrics-image",
+                'url("' + jpgURL.replace(/"/g, "%22") + '")'
             );
+        };
 
-        const url =
-            URL.createObjectURL(blob);
+        image.onerror = () => {
+            if (requestID !== playRequestID) return;
+            lyricsPanel.style.setProperty("--lyrics-image", "none");
+            console.warn("找不到同名 JPG 背景圖片：", jpgURL);
+        };
 
-        const link =
-            document.createElement("a");
+        image.src = jpgURL;
+
+        await loadSRT(srtURL, requestID);
+
+        if (requestID !== playRequestID) return;
+
+        setStatus("歌曲已載入，可以開始播放");
+
+    } catch (error) {
+        setStatus(error.message);
+    }
+}
+
+/* 動態音波分析器 */
+async function createAudioAnalyzer() {
+    if (waveformReady) {
+        if (audioContext && audioContext.state === "suspended") {
+            await audioContext.resume();
+        }
+        return;
+    }
+
+    const AudioContextClass =
+        window.AudioContext || window.webkitAudioContext;
+
+    if (!AudioContextClass) {
+        setStatus("瀏覽器不支援音波視覺效果，但仍可播放音樂");
+        return;
+    }
+
+    try {
+        audioContext = new AudioContextClass();
+        analyser = audioContext.createAnalyser();
+        analyser.fftSize = 2048;
+        analyser.smoothingTimeConstant = 0.82;
+
+        sourceNode = audioContext.createMediaElementSource(audio);
+        sourceNode.connect(analyser);
+        analyser.connect(audioContext.destination);
+
+        waveformReady = true;
+        await audioContext.resume();
+
+    } catch (error) {
+        console.warn("音波分析器建立失敗：", error);
+        setStatus("音波效果無法啟動，請確認瀏覽器音訊設定");
+    }
+}
+
+/* Canvas 音波 */
+function resizeCanvas() {
+    const rect = canvas.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+
+    canvas.width = Math.max(1, Math.floor(rect.width * dpr));
+    canvas.height = Math.max(1, Math.floor(rect.height * dpr));
+
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
+
+window.addEventListener("resize", resizeCanvas);
+resizeCanvas();
+
+function drawWave() {
+    animationID = requestAnimationFrame(drawWave);
+
+    const width = canvas.clientWidth;
+    const height = canvas.clientHeight;
+    ctx.clearRect(0, 0, width, height);
+
+    const centerY = height / 2;
+
+    if (!analyser || audio.paused || audio.ended) {
+        ctx.beginPath();
+        ctx.moveTo(0, centerY);
+        ctx.lineTo(width, centerY);
+        ctx.strokeStyle = "rgba(85,200,255,.55)";
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        return;
+    }
+
+    const bufferLength = analyser.fftSize;
+    const dataArray = new Uint8Array(bufferLength);
+    analyser.getByteTimeDomainData(dataArray);
+
+    ctx.beginPath();
+    const sliceWidth = width / bufferLength;
+
+    for (let i = 0; i < bufferLength; i++) {
+        const value = (dataArray[i] - 128) / 128;
+        const x = i * sliceWidth;
+        const y = centerY + value * height * 0.43;
+
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+    }
+
+    ctx.strokeStyle = "#65d8ff";
+    ctx.lineWidth = 2;
+    ctx.shadowBlur = 12;
+    ctx.shadowColor = "#168bff";
+    ctx.stroke();
+    ctx.shadowBlur = 0;
+}
+
+/* 播放歌曲 */
+playButton.addEventListener("click", async () => {
+    const song = songNameInput.value.trim();
+
+    if (!song) {
+        setStatus("請先選擇或輸入歌曲名稱");
+        return;
+    }
+
+    if (song !== currentSong || !audio.src) {
+        await loadSong(song);
+    }
+
+    try {
+        await createAudioAnalyzer();
+        await audio.play();
+        setStatus("正在播放：" + currentSong);
+    } catch (error) {
+        setStatus("無法播放，請確認 MP3 檔案是否存在");
+        console.error("播放失敗：", error);
+    }
+});
+
+/* 手動載入歌曲 */
+loadButton.addEventListener("click", () => {
+    loadSong(songNameInput.value);
+});
+
+songNameInput.addEventListener("keydown", event => {
+    if (event.key === "Enter") loadSong(songNameInput.value);
+});
+
+/* 歌詞與播放進度同步 */
+audio.addEventListener("timeupdate", syncLyrics);
+audio.addEventListener("seeked", syncLyrics);
+audio.addEventListener("loadedmetadata", syncLyrics);
+
+audio.addEventListener("play", () => {
+    if (animationID) cancelAnimationFrame(animationID);
+    drawWave();
+});
+
+audio.addEventListener("pause", () => {
+    if (animationID) {
+        cancelAnimationFrame(animationID);
+        animationID = 0;
+    }
+    drawWave();
+});
+
+audio.addEventListener("ended", () => {
+    syncLyrics();
+    setStatus("歌曲播放完畢");
+});
+
+/* 下載 MP3 與 SRT */
+function downloadFile(extension) {
+    if (!currentSong) {
+        setStatus("請先載入歌曲");
+        return;
+    }
+
+    let url;
+
+    try {
+        url = getFileURL(currentSong, extension);
+    } catch (error) {
+        setStatus(error.message);
+        return;
+    }
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = currentSong + "." + extension;
+
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+}
+
+downloadMP3.addEventListener("click", () => downloadFile("mp3"));
+downloadSRT.addEventListener("click", () => downloadFile("srt"));
+
+/* ==================================
+   下載指定歌曲的專屬網頁
+================================== */
+
+downloadPage.addEventListener("click", () => {
+    const song = songNameInput.value.trim();
+
+    if (!song) {
+        setStatus("請先輸入歌曲名稱");
+        return;
+    }
+
+    try {
+        /*
+          以 DOMParser 修改下載副本，
+          不影響目前正在使用的原始網頁。
+        */
+        const sourceHTML =
+            "<!DOCTYPE html>\n" +
+            document.documentElement.outerHTML;
+
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(sourceHTML, "text/html");
+
+        /* 下載版隱藏設定欄位 */
+        doc.body.classList.add("standalone-song");
+
+        /* 固定 GitHub 帳號、儲存庫及歌曲名稱 */
+        doc.getElementById("githubUser")
+            .setAttribute("value", githubUser.value.trim());
+
+        doc.getElementById("githubRepo")
+            .setAttribute("value", githubRepo.value.trim());
+
+        doc.getElementById("songNameInput")
+            .setAttribute("value", song);
+
+        /* 更新下載版標題 */
+        doc.title = song + "｜我的音樂創作";
+
+        /* 下載 HTML */
+        const finalHTML =
+            "<!DOCTYPE html>\n" + doc.documentElement.outerHTML;
+
+        const blob = new Blob(
+            [finalHTML],
+            { type: "text/html;charset=utf-8" }
+        );
+
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
 
         link.href = url;
-        link.download = "mp3.html";
+        link.download = song + ".html";
+
         document.body.appendChild(link);
         link.click();
         link.remove();
 
-        URL.revokeObjectURL(url);
+        setTimeout(() => URL.revokeObjectURL(url), 1500);
 
-        statusText.textContent =
-            "✅ mp3.html 下載完成";
+        setStatus("已開始下載：" + song + ".html");
+
+    } catch (error) {
+        console.error("下載網頁失敗：", error);
+        setStatus("下載網頁失敗，請重新操作");
     }
-);
+});
 
+/* 啟動網頁 */
+if (document.body.classList.contains("standalone-song")) {
+    const fixedSong = songNameInput.value.trim();
 
-/* =====================================================
-   選擇歌曲
-===================================================== */
-
-songSelect.addEventListener(
-    "change",
-    function() {
-
-
-        const fileName =
-            this.value;
-
-
-        if (!fileName) {
-
-
-            songTitle.textContent =
-                "尚未選擇歌曲";
-
-
-            return;
-
-        }
-
-
-        const songName =
-            fileName.replace(
-                /\.mp3$/i,
-                ""
-            );
-
-
-        songTitle.textContent =
-            "🎵 " + songName;
-
-
-        statusText.textContent =
-            "已選擇歌曲，請按「播放」";
-
+    if (fixedSong) {
+        loadSong(fixedSong);
     }
-);
-
-
-/* =====================================================
-   建立 MP3 網址
-===================================================== */
-
-function getMP3URL() {
-
-
-    const fileName =
-        songSelect.value;
-
-
-    if (!fileName) {
-
-        return null;
-
-    }
-
-
-    return (
-        getMP3BaseURL() +
-        encodeURIComponent(
-            fileName
-        )
-    );
-
+} else {
+    loadSongList();
 }
 
-
-/* =====================================================
-   建立 SRT 網址
-===================================================== */
-
-function getSRTURL() {
-
-
-    const fileName =
-        songSelect.value;
-
-
-    if (!fileName) {
-
-        return null;
-
-    }
-
-
-    const songName =
-        fileName.replace(
-            /\.mp3$/i,
-            ""
-        );
-
-
-    return (
-        getMP3BaseURL() +
-        encodeURIComponent(
-            songName + ".srt"
-        )
-    );
-
-}
-
-
-/* =====================================================
-   播放歌曲
-===================================================== */
-
-playButton.addEventListener(
-    "click",
-    playSong
-);
-
-
-async function playSong() {
-
-
-    const fileName =
-        songSelect.value;
-
-
-    if (!fileName) {
-
-
-        alert(
-            "請先從下拉式選單選擇歌曲！"
-        );
-
-
-        return;
-
-    }
-
-
-    const songName =
-        fileName.replace(
-            /\.mp3$/i,
-            ""
-        );
-
-
-    const mp3URL =
-        getMP3URL();
-
-
-    const srtURL =
-        getSRTURL();
-
-
-    songTitle.textContent =
-        "🎵 " + songName;
-
-
-    statusText.textContent =
-        "正在載入歌曲...";
-
-
-    audio.pause();
-
-
-    audio.currentTime =
-        0;
-
-
-    audio.src =
-        mp3URL;
-
-
-    audio.load();
-
-
-    /*
-     * 建立音訊分析器
-     */
-
-    createAudioAnalyzer();
-
-
-    if (
-        audioContext &&
-        audioContext.state ===
-        "suspended"
-    ) {
-
-
-        await audioContext.resume();
-
-    }
-
-
-    /*
-     * 載入SRT
-     */
-
-    loadSRT(
-        srtURL
-    );
-
-
-    /*
-     * 播放
-     */
-
-    try {
-
-
-        await audio.play();
-
-
-        statusText.textContent =
-            "🔊 正在播放";
-
-
-        startWave();
-
-
-    } catch(error) {
-
-
-        console.error(
-            error
-        );
-
-
-        statusText.textContent =
-            "❌ MP3 無法播放";
-
-    }
-
-}
-
-
-/* =====================================================
-   下載 MP3
-===================================================== */
-
-downloadMP3.addEventListener(
-    "click",
-    async function() {
-
-
-        const fileName =
-            songSelect.value;
-
-
-        if (!fileName) {
-
-
-            alert(
-                "請先選擇歌曲！"
-            );
-
-
-            return;
-
-        }
-
-
-        const mp3URL =
-            getMP3URL();
-
-
-        const originalText =
-            this.textContent;
-
-
-        this.textContent =
-            "⏳ 下載中...";
-
-
-        this.disabled =
-            true;
-
-
-        try {
-
-
-            /*
-             * 先抓取檔案
-             */
-
-            const response =
-                await fetch(
-                    mp3URL
-                );
-
-
-            if (!response.ok) {
-
-                throw new Error(
-                    "MP3下載失敗"
-                );
-
-            }
-
-
-            const blob =
-                await response.blob();
-
-
-            /*
-             * 建立下載連結
-             */
-
-            const blobURL =
-                URL.createObjectURL(
-                    blob
-                );
-
-
-            const link =
-                document.createElement(
-                    "a"
-                );
-
-
-            link.href =
-                blobURL;
-
-
-            link.download =
-                fileName;
-
-
-            document.body.appendChild(
-                link
-            );
-
-
-            link.click();
-
-
-            link.remove();
-
-
-            URL.revokeObjectURL(
-                blobURL
-            );
-
-
-            statusText.textContent =
-                "✅ MP3 下載完成";
-
-
-        } catch(error) {
-
-
-            console.error(
-                error
-            );
-
-
-            /*
-             * 如果瀏覽器阻擋 fetch，
-             * 改用直接下載
-             */
-
-            const link =
-                document.createElement(
-                    "a"
-                );
-
-
-            link.href =
-                mp3URL;
-
-
-            link.download =
-                fileName;
-
-
-            link.target =
-                "_blank";
-
-
-            document.body.appendChild(
-                link
-            );
-
-
-            link.click();
-
-
-            link.remove();
-
-
-            statusText.textContent =
-                "⬇️ 已開啟 MP3 下載";
-
-        }
-
-
-        this.textContent =
-            originalText;
-
-
-        this.disabled =
-            false;
-
-    }
-);
-
-
-/* =====================================================
-   下載 SRT
-===================================================== */
-
-downloadSRT.addEventListener(
-    "click",
-    async function() {
-
-
-        const fileName =
-            songSelect.value;
-
-
-        if (!fileName) {
-
-
-            alert(
-                "請先選擇歌曲！"
-            );
-
-
-            return;
-
-        }
-
-
-        const srtURL =
-            getSRTURL();
-
-
-        const songName =
-            fileName.replace(
-                /\.mp3$/i,
-                ""
-            );
-
-
-        const srtFileName =
-            songName + ".srt";
-
-
-        const originalText =
-            this.textContent;
-
-
-        this.textContent =
-            "⏳ 下載中...";
-
-
-        this.disabled =
-            true;
-
-
-        try {
-
-
-            const response =
-                await fetch(
-                    srtURL
-                );
-
-
-            if (!response.ok) {
-
-                throw new Error(
-                    "SRT不存在"
-                );
-
-            }
-
-
-            const blob =
-                await response.blob();
-
-
-            const blobURL =
-                URL.createObjectURL(
-                    blob
-                );
-
-
-            const link =
-                document.createElement(
-                    "a"
-                );
-
-
-            link.href =
-                blobURL;
-
-
-            link.download =
-                srtFileName;
-
-
-            document.body.appendChild(
-                link
-            );
-
-
-            link.click();
-
-
-            link.remove();
-
-
-            URL.revokeObjectURL(
-                blobURL
-            );
-
-
-            statusText.textContent =
-                "✅ SRT 字幕下載完成";
-
-
-        } catch(error) {
-
-
-            console.error(
-                error
-            );
-
-
-            alert(
-                "找不到這首歌曲的 SRT 字幕！\n\n"
-                + srtFileName
-            );
-
-
-            statusText.textContent =
-                "⚠ 找不到 SRT 字幕";
-
-        }
-
-
-        this.textContent =
-            originalText;
-
-
-        this.disabled =
-            false;
-
-    }
-);
-
-
-/* =====================================================
-   AudioContext
-===================================================== */
-
-function createAudioAnalyzer() {
-
-
-    if (audioContext) {
-
-        return;
-
-    }
-
-
-    try {
-
-
-        audioContext =
-            new (
-                window.AudioContext ||
-                window.webkitAudioContext
-            )();
-
-
-        analyser =
-            audioContext.createAnalyser();
-
-
-        analyser.fftSize =
-            2048;
-
-
-        dataArray =
-            new Uint8Array(
-                analyser.fftSize
-            );
-
-
-        source =
-            audioContext
-                .createMediaElementSource(
-                    audio
-                );
-
-
-        source.connect(
-            analyser
-        );
-
-
-        analyser.connect(
-            audioContext.destination
-        );
-
-
-    } catch(error) {
-
-
-        console.error(
-            "AudioContext錯誤",
-            error
-        );
-
-    }
-
-}
-
-
-/* =====================================================
-   SRT
-===================================================== */
-
-async function loadSRT(
-    url
-) {
-
-
-    try {
-
-
-        const response =
-            await fetch(
-                url
-            );
-
-
-        if (!response.ok) {
-
-            throw new Error(
-                "SRT不存在"
-            );
-
-        }
-
-
-        const text =
-            await response.text();
-
-
-        lyrics =
-            parseSRT(
-                text
-            );
-
-
-        displayLyrics();
-
-
-    } catch(error) {
-
-
-        console.log(
-            "沒有SRT：",
-            error
-        );
-
-
-        lyrics = [];
-
-
-        lyricsBox.innerHTML =
-            `<div class="lyric-line">
-                ♪ 此歌曲沒有 SRT 歌詞 ♪
-            </div>`;
-
-    }
-
-}
-
-
-/* =====================================================
-   SRT解析
-===================================================== */
-
-function parseSRT(
-    data
-) {
-
-
-    const blocks =
-        data
-        .replace(
-            /\r/g,
-            ""
-        )
-        .split(
-            /\n\s*\n/
-        );
-
-
-    const result = [];
-
-
-    blocks.forEach(
-        block => {
-
-
-            const lines =
-                block.split(
-                    "\n"
-                );
-
-
-            let timeLine =
-                "";
-
-
-            let textLines =
-                [];
-
-
-            for (
-                let i = 0;
-                i < lines.length;
-                i++
-            ) {
-
-
-                if (
-                    lines[i]
-                    .includes("-->")
-                ) {
-
-
-                    timeLine =
-                        lines[i];
-
-
-                    textLines =
-                        lines.slice(
-                            i + 1
-                        );
-
-
-                    break;
-
-                }
-
-            }
-
-
-            if (!timeLine) return;
-
-
-            const times =
-                timeLine.split(
-                    "-->"
-                );
-
-
-            const start =
-                timeToSeconds(
-                    times[0].trim()
-                );
-
-
-            const end =
-                timeToSeconds(
-                    times[1].trim()
-                );
-
-
-            const text =
-                textLines
-                .join(" ")
-                .replace(
-                    /<[^>]*>/g,
-                    ""
-                )
-                .trim();
-
-
-            if (text) {
-
-
-                result.push({
-
-                    start:
-                        start,
-
-                    end:
-                        end,
-
-                    text:
-                        text
-
-                });
-
-            }
-
-        }
-    );
-
-
-    return result;
-
-}
-
-
-/* =====================================================
-   時間轉秒
-===================================================== */
-
-function timeToSeconds(
-    time
-) {
-
-
-    time =
-        time.replace(
-            ",",
-            "."
-        );
-
-
-    const p =
-        time.split(
-            ":"
-        );
-
-
-    return (
-        Number(p[0]) * 3600 +
-        Number(p[1]) * 60 +
-        Number(p[2])
-    );
-
-}
-
-
-/* =====================================================
-   顯示歌詞
-===================================================== */
-
-function displayLyrics() {
-
-
-    lyricsBox.innerHTML =
-        "";
-
-
-    lyrics.forEach(
-        (item,index) => {
-
-
-            const div =
-                document.createElement(
-                    "div"
-                );
-
-
-            div.className =
-                "lyric-line";
-
-
-            div.id =
-                "lyric-" +
-                index;
-
-
-            div.textContent =
-                item.text;
-
-
-            lyricsBox.appendChild(
-                div
-            );
-
-        }
-    );
-
-}
-
-
-/* =====================================================
-   同步歌詞
-===================================================== */
-
-audio.addEventListener(
-    "timeupdate",
-    function() {
-
-
-        const currentTime =
-            audio.currentTime;
-
-
-        let activeIndex =
-            -1;
-
-
-        for (
-            let i = 0;
-            i < lyrics.length;
-            i++
-        ) {
-
-
-            if (
-                currentTime >=
-                lyrics[i].start
-                &&
-                currentTime <=
-                lyrics[i].end
-            ) {
-
-
-                activeIndex =
-                    i;
-
-
-                break;
-
-            }
-
-        }
-
-
-        document
-            .querySelectorAll(
-                ".lyric-line"
-            )
-            .forEach(
-                el => {
-
-                    el.classList.remove(
-                        "active"
-                    );
-
-                }
-            );
-
-
-        if (
-            activeIndex >= 0
-        ) {
-
-
-            const current =
-                document.getElementById(
-                    "lyric-" +
-                    activeIndex
-                );
-
-
-            if (current) {
-
-
-                current.classList.add(
-                    "active"
-                );
-
-
-                current.scrollIntoView({
-
-                    behavior:
-                        "smooth",
-
-                    block:
-                        "center"
-
-                });
-
-            }
-
-        }
-
-    }
-);
-
-
-/* =====================================================
-   Canvas
-===================================================== */
-
-function resizeCanvas() {
-
-
-    const rect =
-        canvas.getBoundingClientRect();
-
-
-    const dpr =
-        window.devicePixelRatio ||
-        1;
-
-
-    canvas.width =
-        rect.width * dpr;
-
-
-    canvas.height =
-        rect.height * dpr;
-
-
-    ctx.setTransform(
-        dpr,
-        0,
-        0,
-        dpr,
-        0,
-        0
-    );
-
-}
-
-
-window.addEventListener(
-    "resize",
-    resizeCanvas
-);
-
-
-/* =====================================================
-   啟動波形
-===================================================== */
-
-function startWave() {
-
-
-    if (!animationID) {
-
-        drawWave();
-
-    }
-
-}
-
-
-/* =====================================================
-   動態波形
-===================================================== */
-
-function drawWave() {
-
-
-    animationID =
-        requestAnimationFrame(
-            drawWave
-        );
-
-
-    const width =
-        canvas.clientWidth;
-
-
-    const height =
-        canvas.clientHeight;
-
-
-    ctx.clearRect(
-        0,
-        0,
-        width,
-        height
-    );
-
-
-    if (!analyser) {
-
-        drawIdleWave(
-            width,
-            height
-        );
-
-        return;
-
-    }
-
-
-    analyser.getByteTimeDomainData(
-        dataArray
-    );
-
-
-    ctx.beginPath();
-
-
-    const sliceWidth =
-        width /
-        dataArray.length;
-
-
-    let x = 0;
-
-
-    for (
-        let i = 0;
-        i < dataArray.length;
-        i++
-    ) {
-
-
-        const v =
-            dataArray[i] /
-            128.0;
-
-
-        const y =
-            height / 2 +
-            (v - 1) *
-            height *
-            0.42;
-
-
-        if (i === 0) {
-
-            ctx.moveTo(
-                x,
-                y
-            );
-
-        } else {
-
-            ctx.lineTo(
-                x,
-                y
-            );
-
-        }
-
-
-        x += sliceWidth;
-
-    }
-
-
-    ctx.shadowBlur =
-        18;
-
-
-    ctx.shadowColor =
-        "#60a5fa";
-
-
-    ctx.lineWidth =
-        3;
-
-
-    ctx.strokeStyle =
-        "#60a5fa";
-
-
-    ctx.stroke();
-
-
-    ctx.shadowBlur =
-        0;
-
-
-    ctx.lineWidth =
-        1;
-
-
-    ctx.strokeStyle =
-        "rgba(255,255,255,0.9)";
-
-
-    ctx.stroke();
-
-}
-
-
-/* =====================================================
-   待機波形
-===================================================== */
-
-function drawIdleWave(
-    width,
-    height
-) {
-
-
-    ctx.beginPath();
-
-
-    for (
-        let x = 0;
-        x < width;
-        x += 5
-    ) {
-
-
-        const y =
-            height / 2 +
-            Math.sin(
-                x / 25
-            ) * 7;
-
-
-        if (x === 0) {
-
-            ctx.moveTo(
-                x,
-                y
-            );
-
-        } else {
-
-            ctx.lineTo(
-                x,
-                y
-            );
-
-        }
-
-    }
-
-
-    ctx.lineWidth =
-        2;
-
-
-    ctx.strokeStyle =
-        "rgba(96,165,250,0.45)";
-
-
-    ctx.stroke();
-
-}
-
-
-/* =====================================================
-   播放事件
-===================================================== */
-
-audio.addEventListener(
-    "play",
-    async function() {
-
-
-        if (
-            audioContext &&
-            audioContext.state ===
-            "suspended"
-        ) {
-
-            await audioContext.resume();
-
-        }
-
-
-        statusText.textContent =
-            "🔊 正在播放";
-
-
-        startWave();
-
-    }
-);
-
-
-audio.addEventListener(
-    "pause",
-    function() {
-
-
-        statusText.textContent =
-            "⏸ 已暫停";
-
-    }
-);
-
-
-audio.addEventListener(
-    "ended",
-    function() {
-
-
-        statusText.textContent =
-            "🎉 播放完成";
-
-    }
-);
-
-
-audio.addEventListener(
-    "error",
-    function() {
-
-
-        statusText.textContent =
-            "❌ MP3 載入失敗";
-
-    }
-);
-
-
-/* =====================================================
-   初始化
-===================================================== */
-
-resizeCanvas();
-
-
-drawIdleWave(
-    canvas.clientWidth,
-    canvas.clientHeight
-);
-
+drawWave();
 </script>
-
-
 
 
 </body></html>
